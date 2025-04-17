@@ -10,7 +10,26 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
+    <<!-- Current Percentage Section -->
+    <Label text="Community Pool" />
+    <Label fx:id="communityPercentageLabel" />
+    <Label text="Grid Portion" />
+    <Label fx:id="gridPercentageLabel" />
+    <Button text="Refresh" onAction="#onRefresh" />
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Separator />
+
+    <!-- Historical Data Section -->
+    <Label text="Start" />
+    <DatePicker fx:id="startPicker" />
+    <Label text="End" />
+    <DatePicker fx:id="endPicker" />
+    <Button text="Show Data" onAction="#onShowData" />
+
+    <Separator />
+
+    <!-- Data Result Section -->
+    <Label fx:id="producedLabel" />
+    <Label fx:id="usedLabel" />
+    <Label fx:id="gridUsedLabel" />
 </VBox>
