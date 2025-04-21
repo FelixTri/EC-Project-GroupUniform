@@ -4,10 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RestUniformApplication {
-
+public class RestServerStarter {
     public static void main(String[] args) {
-        SpringApplication.run(RestUniformApplication.class, args);
+        SpringApplication.run(RestServerStarter.class, args);
     }
-
 }
