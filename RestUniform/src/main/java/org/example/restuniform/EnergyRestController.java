@@ -1,31 +1,36 @@
 package org.example.restuniform;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.example.restuniform.model.EnergyPercentage;
+import org.example.restuniform.model.EnergyUsage;
+import org.example.restuniform.repository.EnergyPercentageRepository;
+import org.example.restuniform.repository.EnergyUsageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
+@RequestMapping("/energy")
 public class EnergyRestController {
 
-    @GetMapping("/energy/current")
-    public Map<String, Object> getCurrentEnergyStatus() {
-        return Map.of(
-                "community_depleted", 94.78,
-                "grid_portion", 8.94
-        );
+    @Autowired
+    private EnergyUsageRepository usageRepo;
+
+    @Autowired
+    private EnergyPercentageRepository percentageRepo;
+
+    @GetMapping("/current")
+    public EnergyPercentage getCurrentHour() {
+        LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
+        return percentageRepo.findById(now).orElse(null);
     }
 
-    @GetMapping("/energy/historical")
-    public Map<String, Object> getHistoricalData(
-            @RequestParam String start,
-            @RequestParam String end
-    ) {
-        return Map.of(
-                "community_produced", 158.321,
-                "community_used", 140.874,
-                "grid_used", 17.447
-        );
+    @GetMapping("/historical")
+    public List<EnergyUsage> getHistorical(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
+        return usageRepo.findAllByHourBetween(start, end);
     }
 }
