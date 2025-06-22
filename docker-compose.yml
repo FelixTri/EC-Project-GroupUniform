@@ -1,22 +1,14 @@
-version: '3.8'
-
 services:
-  postgres:
-    image: postgres:15
-    container_name: postgres
-    environment:
-      POSTGRES_DB: energy
-      POSTGRES_USER: energy_user
-      POSTGRES_PASSWORD: energy_pw
+  database:
+    image: postgres:alpine
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - energynet
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=disysuser
+      - POSTGRES_PASSWORD=disyspw
 
-volumes:
-  postgres_data:
-
-networks:
-  energynet:
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - '5672:5672'
+      - '15672:15672'
