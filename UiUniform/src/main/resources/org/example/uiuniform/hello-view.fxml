@@ -20,19 +20,15 @@
 
     <!-- Historische Abfrage -->
     <Label text="Start"/>
-    <HBox spacing="10">
+    <HBox spacing="10" alignment="CENTER">
         <DatePicker fx:id="startPicker"/>
         <ComboBox fx:id="startHourBox" promptText="HH" prefWidth="60"/>
-        <Label text=":"/>
-        <ComboBox fx:id="startMinuteBox" promptText="MM" prefWidth="60"/>
     </HBox>
 
     <Label text="Ende"/>
-    <HBox spacing="10">
+    <HBox spacing="10" alignment="CENTER">
         <DatePicker fx:id="endPicker"/>
         <ComboBox fx:id="endHourBox" promptText="HH" prefWidth="60"/>
-        <Label text=":"/>
-        <ComboBox fx:id="endMinuteBox" promptText="MM" prefWidth="60"/>
     </HBox>
 
     <Button text="Show Data" onAction="#onShowData"/>
