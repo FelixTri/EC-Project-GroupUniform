@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/energy")
+@RequestMapping("/postgres")
 public class EnergyRestController {
 
     @Autowired
