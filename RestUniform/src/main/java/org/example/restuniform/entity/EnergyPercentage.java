@@ -1,18 +1,22 @@
-package org.example.restuniform.model;
+package org.example.restuniform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "energy_percentage")
 public class EnergyPercentage {
 
     @Id
     private LocalDateTime hour;
 
+    @Column(nullable = false)
     private double communityDepleted;
+
+    @Column(nullable = false)
     private double gridPortion;
 
+    // Getter und Setter
     public LocalDateTime getHour() {
         return hour;
     }
@@ -21,19 +25,19 @@ public class EnergyPercentage {
         this.hour = hour;
     }
 
-    public double getCommunityDepleted() {
-        return communityDepleted;
-    }
-
-    public void setCommunityDepleted(double communityDepleted) {
-        this.communityDepleted = communityDepleted;
-    }
-
     public double getGridPortion() {
         return gridPortion;
     }
 
     public void setGridPortion(double gridPortion) {
         this.gridPortion = gridPortion;
+    }
+
+    public double getCommunityDepleted() {
+        return communityDepleted;
+    }
+
+    public void setCommunityDepleted(double communityDepleted) {
+        this.communityDepleted = communityDepleted;
     }
 }

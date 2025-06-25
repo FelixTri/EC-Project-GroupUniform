@@ -1,7 +1,7 @@
 package org.example.restuniform;
 
-import org.example.restuniform.model.EnergyPercentage;
-import org.example.restuniform.model.EnergyUsage;
+import org.example.restuniform.entity.EnergyPercentage;
+import org.example.restuniform.entity.EnergyUsage;
 import org.example.restuniform.repository.EnergyPercentageRepository;
 import org.example.restuniform.repository.EnergyUsageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
