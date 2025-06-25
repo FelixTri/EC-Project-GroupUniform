@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/EC-Project-GroupUniform.iml" filepath="$PROJECT_DIR$/.idea/EC-Project-GroupUniform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UsageServiceUniform/usageserviceuniform.iml" filepath="$PROJECT_DIR$/UsageServiceUniform/usageserviceuniform.iml" />
     </modules>
   </component>
 </project>

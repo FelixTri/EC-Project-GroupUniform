@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="usageserviceuniform" />
         <module name="UiUniform" />
         <module name="EnergyUserUniform" />
         <module name="EnergyProducerUniform" />
@@ -18,6 +19,7 @@
       <module name="EnergyProducerUniform" options="-parameters" />
       <module name="EnergyUserUniform" options="-parameters" />
       <module name="RestUniform" options="-parameters" />
+      <module name="usageserviceuniform" options="-parameters" />
     </option>
   </component>
 </project>
