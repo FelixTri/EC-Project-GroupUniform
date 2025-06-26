@@ -9,6 +9,7 @@
         <module name="usageserviceuniform" />
         <module name="UiUniform" />
         <module name="EnergyUserUniform" />
+        <module name="CurrentPercentageServiceUniform" />
         <module name="EnergyProducerUniform" />
         <module name="RestUniform" />
       </profile>

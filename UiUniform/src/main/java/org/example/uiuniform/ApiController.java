@@ -1,6 +1,7 @@
 package org.example.uiuniform;
 
 import org.json.JSONObject;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -35,16 +36,11 @@ public class ApiController {
             if (response.statusCode() == 200) {
                 return new JSONObject(response.body());
             } else {
-                System.err.println("Fehler bei API-Aufruf: " + response.statusCode());
+                throw new RuntimeException("API-Antwort fehlerhaft: " + response.statusCode());
             }
 
         } catch (Exception e) {
-            System.err.println("Fehler beim Aufruf von URI: " + uri);
-            e.printStackTrace();
+            throw new RuntimeException("Fehler beim Aufruf von URI: " + uri + "\n" + e.getMessage());
         }
-
-        return null;
     }
 }
-
-
