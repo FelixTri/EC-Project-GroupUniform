@@ -11,7 +11,7 @@ public class EnergyPercentage {
     private LocalDateTime hour;
 
     @Column(nullable = false)
-    private double communityDepleted;
+    private double communityPool;
 
     @Column(nullable = false)
     private double gridPortion;
@@ -33,11 +33,11 @@ public class EnergyPercentage {
         this.gridPortion = gridPortion;
     }
 
-    public double getCommunityDepleted() {
-        return communityDepleted;
+    public double getCommunityPool() {
+        return communityPool;
     }
 
-    public void setCommunityDepleted(double communityDepleted) {
-        this.communityDepleted = communityDepleted;
+    public void setCommunityPool(double communityDepleted) {
+        this.communityPool = communityDepleted;
     }
 }

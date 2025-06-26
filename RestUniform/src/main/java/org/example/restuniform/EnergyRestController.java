@@ -30,7 +30,7 @@ public class EnergyRestController {
         if (latest.isPresent()) {
             EnergyPercentage data = latest.get();
             return Map.of(
-                    "community_depleted", data.getCommunityDepleted(),
+                    "community_depleted", data.getCommunityPool(),
                     "grid_portion", data.getGridPortion()
             );
         } else {
