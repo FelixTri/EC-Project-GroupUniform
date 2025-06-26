@@ -86,7 +86,7 @@ public class CurrentPercentageService extends CurrentBaseService {
     private ResultSet fetchEnergyUsage(Connection conn, Timestamp hour) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("""
             SELECT community_produced, community_used, grid_used
-            FROM energy_usage
+            FROM energy_hourly_usage
             WHERE hour = ?
         """);
         stmt.setTimestamp(1, hour);
@@ -106,11 +106,11 @@ public class CurrentPercentageService extends CurrentBaseService {
 
     private int insertOrUpdatePercentages(Connection conn, Timestamp hour, double[] percentages) throws SQLException {
         PreparedStatement insert = conn.prepareStatement("""
-            INSERT INTO current_percentage (hour, community_depleted, grid_portion)
+            INSERT INTO energy_percentage (hour, communityPool, gridPortion)
             VALUES (?, ?, ?)
             ON CONFLICT (hour) DO UPDATE SET
-                community_depleted = EXCLUDED.community_depleted,
-                grid_portion = EXCLUDED.grid_portion
+                communityPool = EXCLUDED.communityPool,
+                gridPortion = EXCLUDED.gridPortion
         """);
         insert.setTimestamp(1, hour);
         insert.setDouble(2, percentages[0]);
