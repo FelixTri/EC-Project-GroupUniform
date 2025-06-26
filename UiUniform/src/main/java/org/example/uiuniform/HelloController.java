@@ -23,7 +23,7 @@ public class HelloController {
     @FXML private Label usedLabel;
     @FXML private Label gridUsedLabel;
 
-    private final ApiController api = new ApiController(); // einmalig erstellen
+    private final ApiController api = new ApiController();
 
     @FXML
     public void initialize() {
@@ -32,7 +32,6 @@ public class HelloController {
             endHourBox.getItems().add(h);
         }
 
-        // Standardwerte setzen
         startHourBox.setValue(0);
         endHourBox.setValue(23);
     }
@@ -42,19 +41,15 @@ public class HelloController {
         try {
             JSONObject json = api.getCurrentEnergyData();
 
-            if (json != null) {
-                double community = json.getDouble("community_depleted");
-                double grid = json.getDouble("grid_portion");
+            double community = json.getDouble("community_depleted");
+            double grid = json.getDouble("grid_portion");
 
-                communityPercentageLabel.setText(String.format("%.2f%% used", community));
-                gridPercentageLabel.setText(String.format("%.2f%%", grid));
-            } else {
-                setSimulatedCurrentData();
-            }
+            communityPercentageLabel.setText(String.format("Community Pool %.2f%% used", community));
+            gridPercentageLabel.setText(String.format("Grid Portion %.2f%%", grid));
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            showError("Aktuelle Energiedaten konnten nicht geladen werden:\n\n" + e.getMessage());
             setSimulatedCurrentData();
-            System.out.println("API nicht erreichbar – Dummy-Daten verwendet (onRefresh)");
         }
     }
 
@@ -66,8 +61,7 @@ public class HelloController {
         Integer eh = endHourBox.getValue();
 
         if (start == null || end == null || sh == null || eh == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Bitte wähle Datum und Stunde aus.");
-            alert.show();
+            showWarning("Bitte wähle Start- und Enddatum sowie Stunden aus.");
             return;
         }
 
@@ -81,21 +75,17 @@ public class HelloController {
 
             JSONObject json = api.getHistoricalEnergyData(startStr, endStr);
 
-            if (json != null) {
-                double produced = json.getDouble("community_produced");
-                double used = json.getDouble("community_used");
-                double gridUsed = json.getDouble("grid_used");
+            double produced = json.getDouble("community_produced");
+            double used = json.getDouble("community_used");
+            double gridUsed = json.getDouble("grid_used");
 
-                producedLabel.setText(String.format("Community produced: %.3f kWh", produced));
-                usedLabel.setText(String.format("Community used: %.3f kWh", used));
-                gridUsedLabel.setText(String.format("Grid used: %.3f kWh", gridUsed));
-            } else {
-                setSimulatedHistoricalData();
-            }
+            producedLabel.setText(String.format("Community produced: %.3f kWh", produced));
+            usedLabel.setText(String.format("Community used: %.3f kWh", used));
+            gridUsedLabel.setText(String.format("Grid used: %.3f kWh", gridUsed));
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            showError("Historische Daten konnten nicht geladen werden:\n\n" + e.getMessage());
             setSimulatedHistoricalData();
-            System.out.println("API nicht erreichbar – Dummy-Daten verwendet (onShowData)");
         }
     }
 
@@ -108,5 +98,21 @@ public class HelloController {
         producedLabel.setText("Simuliert: Community produced: 123.456 kWh");
         usedLabel.setText("Simuliert: Community used: 110.789 kWh");
         gridUsedLabel.setText("Simuliert: Grid used: 12.667 kWh");
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fehler");
+        alert.setHeaderText("Daten konnten nicht geladen werden");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showWarning(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Eingabe fehlt");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
