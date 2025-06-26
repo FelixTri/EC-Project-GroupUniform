@@ -9,12 +9,10 @@ import java.util.concurrent.TimeoutException;
 
 public abstract class CurrentBaseService {
     private final String inputQueue;
-    private final String outputQueue;
     private final String messageBrokerUrl;
 
     public CurrentBaseService(String inputQueue, String outputQueue, String messageBrokerUrl) {
         this.inputQueue = inputQueue;
-        this.outputQueue = outputQueue;
         this.messageBrokerUrl = messageBrokerUrl;
     }
 
@@ -26,6 +24,7 @@ public abstract class CurrentBaseService {
 
         logSubscription(inputQueue);
     }
+
 
     private DeliverCallback createDeliverCallback() {
         return (consumerTag, delivery) -> {
